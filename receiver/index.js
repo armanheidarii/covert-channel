@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env' })
+
 const express = require('express')
 
 const offset = 1000
@@ -5,11 +7,20 @@ const size = 128
 
 const end_port = 4444
 
+const interval = process.env.INTERVAL + process.env.THRESHOLD
+let last_req_time = 0
+
 const port_activation = async (port) => {
     const app = express()
 
     app.get('/', (req, res) => {
-        if (!req.body) {
+        if (last_req_time)
+            now = Date.now()
+        else
+            now = 0
+        time = (now - last_req_time) * 1000
+        last_req_time = now
+        if (!req.body && time < interval) {
             if (port == end_port)
                 console.log()
             else
