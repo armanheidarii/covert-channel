@@ -1,5 +1,6 @@
 ## Usage
 ```
+First, fill .env file variable based on time algorithm
 cd receiver
 npm i
 npm run start
