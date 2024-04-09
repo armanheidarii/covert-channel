@@ -28,7 +28,7 @@ def send_http_requests(ip, ports, time_interval):
     return sum_time
 
 
-print("Please Enter Your Time Interval In .env file")
+print("Please Enter Your Time Interval First In .env file")
 load_dotenv("../.env")
 
 time_interval = int(os.getenv("INTERVAL"))

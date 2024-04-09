@@ -7,6 +7,7 @@ const size = 128
 
 const end_port = 4444
 
+console.log("Please Enter Your Time Interval First In .env file")
 const interval = process.env.INTERVAL + process.env.THRESHOLD
 let last_req_time = 0
 
