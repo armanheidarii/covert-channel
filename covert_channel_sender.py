@@ -8,14 +8,17 @@ text = input("Please Enter Your Text: ")
 for ch in text:
     ports.append(ord(ch) + offset)
 
-ports.append(4444)
+end_port = 4444
+ports.append(end_port)
 
 print("Your Encoded Massage is: ", ports)
 
 
 def send_http_requests(ip, ports, time_interval):
+    sum_time = 0
+
     for port in ports:
-        url = f"{ip}:{port}"
+        url = f"http://{ip}:{port}/"
         try:
             start_time = time.time()
             print(f"Request was sent to {url}")
@@ -24,6 +27,7 @@ def send_http_requests(ip, ports, time_interval):
             end_time = time.time()
 
             rtt = end_time - start_time
+            sum_time += rtt
 
             print(f"Round-Trip Time for port {port}: {rtt} seconds")
 
@@ -31,6 +35,10 @@ def send_http_requests(ip, ports, time_interval):
         except:
             print("No Response")
 
+    return sum_time
+
 
 time_interval = int(input("Please Enter Your Time Interval: "))
-send_http_requests("194.225.24.105", ports, time_interval)
+sum_time = send_http_requests("0.0.0.0", ports, time_interval)
+
+print(f"The sum of sending the entire message is equal to {sum_time} seconds")
