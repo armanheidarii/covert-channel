@@ -9,17 +9,16 @@ const end_port = 4444
 
 console.log("Please Enter Your Time Interval First In .env file")
 const interval = process.env.INTERVAL + process.env.THRESHOLD
-let last_req_time = 0
+last_req_time = 0
 
 const port_activation = async (port) => {
     const app = express()
 
     app.get('/', (req, res) => {
+        now = Date.now()
+        time = 0
         if (last_req_time)
-            now = Date.now()
-        else
-            now = 0
-        time = (now - last_req_time) * 1000
+            time = (now - last_req_time) / 1000
         last_req_time = now
         if (!req.body && time < interval) {
             if (port == end_port)
@@ -29,7 +28,7 @@ const port_activation = async (port) => {
             return res.send('ok')
         }
 
-        return res.status(404).send('You can not have body!')
+        return res.status(400).send('You can not have body!')
     })
 
     app.listen(port, () => {
